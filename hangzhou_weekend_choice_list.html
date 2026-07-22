@@ -99,12 +99,17 @@
     .toast.show { opacity: 1; transform: translate(-50%,0); }
     @media (max-width: 680px) {
       :root { --radius: 22px; }
-      .toolbar { padding-right: 10px; padding-left: 10px; }
+      .toolbar { padding: 8px 10px; }
+      .toolbar-inner { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 6px; overflow: visible; }
+      .tool-btn { min-width: 0; min-height: 38px; padding: 7px 5px; font-size: 13px; line-height: 1.2; white-space: nowrap; }
+      .tool-btn:nth-child(-n+3) { grid-column: span 2; }
+      .tool-btn:nth-child(n+4) { grid-column: span 3; }
       main { padding: 26px 13px 62px; }
       .hero { border-radius: 28px; }
       .hero:after { font-size: 48px; }
       .grid { grid-template-columns: 1fr; }
       .section { margin-bottom: 42px; }
+      .section, .results { scroll-margin-top: 112px; }
       .card { padding: 18px; }
       .card-image { height: 160px; border-radius: 16px; }
       .result-row { grid-template-columns: 75px 1fr; }
