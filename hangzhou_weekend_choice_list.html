@@ -136,8 +136,8 @@
     <section class="extra-idea" aria-labelledby="extraIdeaTitle">
       <h2 id="extraIdeaTitle">或许你还想……</h2>
       <p>清单之外的小愿望，也可以偷偷放进来。想去哪里、想吃什么，或者只是想一起做件小事，都可以写。</p>
-      <textarea class="extra-input" id="extraIdea" rows="4" placeholder="比如：想在我的床上睡懒觉、想一起拍一组好看的照片、想半夜一起吃泡面聊天……"></textarea>
-      <span class="extra-save-note">这里也会自动保存在当前浏览器，并和最终选择结果拼在一起。</span>
+      <textarea class="extra-input" id="extraIdea" rows="4" placeholder="比如：想在我的床上睡懒觉、想半夜一起吃泡面聊天、想穿着拖鞋去楼下买东西、想突然决定去看一场夜里的风景、想买一堆没必要但很快乐的零食、想把“出门玩”临时改成“躺平大赛”、想凌晨一点突然说一句“要不要出去走走”、想拍一组丑丑但很好笑的照片……"></textarea>
+      <span class="extra-save-note">输入框为空时，轻点一下就能复制这段灵感；你写下的小愿望也会自动保存在当前浏览器，并和最终选择结果拼在一起。</span>
     </section>
 
     <section class="results" id="results">
@@ -284,11 +284,13 @@
         lines.push('其他未选=不排斥，一键跟随～','杭州很大，周末很短，最重要的是我们三个一起玩得开心。');
         return lines.join('\n');
       }
-      async function copyResult(successText='结果已复制') {
-        if (!resultReady) { document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'}); showToast('请先保存 / 更新结果'); return; }
-        const text = resultText();
+      async function copyText(text, successText) {
         try { await navigator.clipboard.writeText(text); showToast(successText); }
         catch (_) { const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); showToast(successText); }
+      }
+      async function copyResult(successText='结果已复制') {
+        if (!resultReady) { document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'}); showToast('请先保存 / 更新结果'); return; }
+        await copyText(resultText(),successText);
       }
       function showToast(text) { const el=document.getElementById('toast'); el.textContent=text; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),1800); }
 
@@ -296,6 +298,7 @@
       document.querySelectorAll('[data-filter]').forEach(btn => btn.addEventListener('click', () => { filter=btn.dataset.filter; document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b===btn)); render(); }));
       const extraInput = document.getElementById('extraIdea');
       extraInput.value = extraIdea;
+      extraInput.addEventListener('click', () => { if (!extraInput.value.trim()) copyText(extraInput.placeholder,'灵感文本已复制'); });
       extraInput.addEventListener('input', () => { extraIdea=extraInput.value; localStorage.setItem(EXTRA_KEY,extraIdea); resultReady=false; });
       document.getElementById('resetBtn').addEventListener('click', () => { if (confirm('要清空所有心选、婉拒和小愿望，恢复到随大部队模式吗？')) { choices={}; extraIdea=''; extraInput.value=''; resultReady=false; localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(EXTRA_KEY); filter='all'; document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all')); render(); resultEl.className='result-empty'; resultEl.textContent='已恢复默认。重新选也行，直接随大部队也行。'; showToast('已恢复默认'); } });
       document.getElementById('generateTop').addEventListener('click',()=>generateResult(true));
