@@ -9,29 +9,29 @@
     :root {
       --ink: #48556f; --muted: #6f7d96; --paper: #f2faff; --white: #fff;
       --pink: #f8e7ef; --pink-strong: #a46f88; --lavender: #e9e1ff; --lavender-strong: #7967ac;
-      --mint: #e3f3ed; --mint-strong: #628f7c; --yellow: #fff2d2;
-      --blue: #d9f1ff; --blue-strong: #5687b1; --line: rgba(104,133,180,.16); --glass: rgba(255,255,255,.48); --glass-border: rgba(255,255,255,.88); --shadow: 0 16px 42px rgba(85,115,166,.14);
+      --mint: #e3f3ed; --mint-strong: #628f7c; --sage: #dce9df; --sage-strong: #6e8d79; --yellow: #fff2d2;
+      --blue: #d9f1ff; --blue-strong: #5687b1; --line: rgba(91,126,166,.17); --glass: rgba(238,247,252,.38); --glass-border: rgba(102,136,171,.16); --shadow: 0 18px 46px rgba(78,108,153,.13);
       --radius: 26px; --toolbar-h: 72px;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; color: var(--ink); background: radial-gradient(circle at 14% 6%,rgba(195,233,255,.98),transparent 30%),radial-gradient(circle at 89% 22%,rgba(219,204,255,.9),transparent 34%),radial-gradient(circle at 50% 82%,rgba(217,241,255,.72),transparent 35%),linear-gradient(145deg,#f4fbff 0%,#e8f6ff 47%,#f1ebff 100%); background-attachment: fixed; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif; line-height: 1.65; }
+    body { margin: 0; color: var(--ink); background: radial-gradient(circle at 14% 6%,rgba(195,233,255,.96),transparent 30%),radial-gradient(circle at 89% 22%,rgba(219,204,255,.86),transparent 34%),radial-gradient(circle at 14% 76%,rgba(203,224,209,.62),transparent 30%),radial-gradient(circle at 56% 88%,rgba(217,241,255,.62),transparent 35%),linear-gradient(145deg,#f1faff 0%,#e6f5fb 46%,#f0ebfb 78%,#edf5ef 100%); background-attachment: fixed; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif; line-height: 1.65; }
     button { font: inherit; }
     .bg-shape { position: fixed; z-index: -1; border-radius: 999px; filter: blur(2px); opacity: .65; pointer-events: none; }
     .bg-1 { width: 280px; height: 280px; background: var(--blue); top: 7%; left: -160px; }
     .bg-2 { width: 340px; height: 340px; background: var(--lavender); top: 40%; right: -210px; }
-    .bg-3 { width: 290px; height: 290px; background: var(--mint); bottom: 4%; left: -170px; }
-    .toolbar { position: sticky; top: 0; z-index: 20; padding: 10px max(14px,env(safe-area-inset-left)); background: rgba(240,249,255,.5); -webkit-backdrop-filter: blur(28px) saturate(145%); backdrop-filter: blur(28px) saturate(145%); border-bottom: 1px solid rgba(255,255,255,.9); box-shadow: 0 8px 24px rgba(93,121,169,.1),inset 0 1px 0 rgba(255,255,255,.94); }
+    .bg-3 { width: 320px; height: 320px; background: var(--sage); bottom: 3%; left: -175px; opacity: .72; }
+    .toolbar { position: sticky; top: 0; z-index: 20; padding: 10px max(14px,env(safe-area-inset-left)); background: rgba(225,241,248,.42); -webkit-backdrop-filter: blur(30px) saturate(138%); backdrop-filter: blur(30px) saturate(138%); border-bottom: 1px solid rgba(101,136,168,.14); box-shadow: 0 8px 24px rgba(75,107,150,.09); }
     .toolbar-inner { max-width: 1100px; margin: auto; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
     .toolbar-inner::-webkit-scrollbar { display: none; }
-    .tool-btn { flex: 0 0 auto; min-height: 42px; padding: 9px 15px; border: 1px solid rgba(255,255,255,.92); border-radius: 999px; background: rgba(255,255,255,.52); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); color: var(--ink); cursor: pointer; box-shadow: 0 6px 18px rgba(86,116,167,.09),inset 0 1px 0 rgba(255,255,255,.98); transition: .2s ease; }
+    .tool-btn { flex: 0 0 auto; min-height: 42px; padding: 9px 15px; border: 1px solid rgba(91,126,166,.16); border-radius: 999px; background: rgba(226,239,247,.5); -webkit-backdrop-filter: blur(16px) saturate(125%); backdrop-filter: blur(16px) saturate(125%); color: var(--ink); cursor: pointer; box-shadow: 0 6px 18px rgba(77,107,150,.08); transition: .2s ease; }
     .tool-btn:hover, .tool-btn:focus-visible { transform: translateY(-1px); border-color: rgba(92,130,170,.42); }
-    .tool-btn.active { background: rgba(207,237,255,.82); border-color: rgba(255,255,255,.92); color: #4f789d; font-weight: 700; }
-    .tool-btn.primary { background: rgba(225,215,255,.82); color: #6f5c9c; font-weight: 700; }
+    .tool-btn.active { background: rgba(201,231,247,.78); border-color: rgba(83,126,165,.2); color: #4f789d; font-weight: 700; }
+    .tool-btn.primary { background: rgba(221,210,249,.74); border-color: rgba(116,96,166,.18); color: #6f5c9c; font-weight: 700; }
     main { max-width: 1100px; margin: auto; padding: 52px 18px 80px; }
-    .hero { position: relative; padding: clamp(28px,6vw,58px); border: 1px solid var(--glass-border); border-radius: 36px; background: radial-gradient(circle at 91% 18%,rgba(255,255,255,.7) 0 12%,transparent 12.5%),radial-gradient(circle at 78% 104%,rgba(210,196,255,.7) 0 27%,transparent 27.5%),linear-gradient(135deg,rgba(221,244,255,.68),rgba(207,233,255,.52) 52%,rgba(228,218,255,.62)); -webkit-backdrop-filter: blur(24px) saturate(132%); backdrop-filter: blur(24px) saturate(132%); box-shadow: var(--shadow),inset 0 1px 0 rgba(255,255,255,.98),inset 0 -1px 0 rgba(190,219,255,.26); overflow: hidden; }
+    .hero { position: relative; padding: clamp(28px,6vw,58px); border: 1px solid var(--glass-border); border-radius: 36px; background: radial-gradient(circle at 91% 18%,rgba(231,244,250,.46) 0 12%,transparent 12.5%),radial-gradient(circle at 78% 104%,rgba(210,196,255,.62) 0 27%,transparent 27.5%),linear-gradient(135deg,rgba(211,239,251,.58),rgba(205,229,245,.43) 48%,rgba(225,216,249,.54) 78%,rgba(214,230,218,.42)); -webkit-backdrop-filter: blur(26px) saturate(128%); backdrop-filter: blur(26px) saturate(128%); box-shadow: var(--shadow); overflow: hidden; }
     .hero:after { content: "杭州 · 相见"; position: absolute; right: -12px; bottom: -25px; color: rgba(255,255,255,.54); font-size: clamp(48px,9vw,96px); font-weight: 900; letter-spacing: .08em; white-space: nowrap; }
-    .invite-from { position: relative; z-index: 1; display: inline-flex; align-items: center; margin: 0 0 14px; padding: 6px 12px; border: 1px solid rgba(92,130,170,.16); border-radius: 999px; background: rgba(255,255,255,.68); color: #617fa1; font-size: 13px; font-weight: 800; letter-spacing: .08em; }
+    .invite-from { position: relative; z-index: 1; display: inline-flex; align-items: center; margin: 0 0 14px; padding: 6px 12px; border: 1px solid rgba(92,130,170,.14); border-radius: 999px; background: rgba(218,237,245,.5); color: #617fa1; font-size: 13px; font-weight: 800; letter-spacing: .08em; }
     .eyebrow { position: relative; z-index: 1; margin: 0 0 9px; font-size: 13px; letter-spacing: .18em; font-weight: 800; color: var(--blue-strong); }
     h1 { position: relative; z-index: 1; margin: 0; max-width: 820px; font-size: clamp(30px,5.4vw,58px); line-height: 1.16; letter-spacing: -.035em; }
     .subtitle { position: relative; z-index: 1; max-width: 780px; margin: 18px 0 0; color: #6f6873; font-size: clamp(15px,2vw,18px); }
@@ -44,8 +44,8 @@
     .section[data-category="indoor"] .count { background: var(--mint); color: var(--mint-strong); }
     .section[data-category="food"] .count { background: var(--yellow); color: #9a7b38; }
     .grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 15px; }
-    .card { position: relative; min-width: 0; padding: 21px; background: linear-gradient(145deg,rgba(255,255,255,.6),rgba(255,255,255,.34)); border: 1px solid var(--glass-border); border-radius: var(--radius); -webkit-backdrop-filter: blur(24px) saturate(128%); backdrop-filter: blur(24px) saturate(128%); box-shadow: var(--shadow),inset 0 1px 0 rgba(255,255,255,.98),inset 0 -1px 0 rgba(194,219,255,.2); overflow: hidden; transition: opacity .22s,filter .22s,transform .22s,border .22s; }
-    .card:before { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(118deg,rgba(255,255,255,.46) 0 9%,transparent 28% 68%,rgba(221,210,255,.18) 88% 100%); pointer-events: none; }
+    .card { position: relative; min-width: 0; padding: 21px; background: linear-gradient(145deg,rgba(224,240,247,.45),rgba(226,220,246,.24) 72%,rgba(213,229,218,.24)); border: 1px solid var(--glass-border); border-radius: var(--radius); -webkit-backdrop-filter: blur(26px) saturate(122%); backdrop-filter: blur(26px) saturate(122%); box-shadow: var(--shadow); overflow: hidden; transition: opacity .22s,filter .22s,transform .22s,border .22s; }
+    .card:before { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(118deg,rgba(207,232,242,.22) 0 10%,transparent 30% 72%,rgba(210,224,214,.12) 100%); pointer-events: none; }
     .card > * { position: relative; z-index: 1; }
     .card:hover { transform: translateY(-2px); }
     .card.excluded { opacity: .53; filter: grayscale(.45); }
@@ -69,14 +69,14 @@
     .vote.fav.selected { background: var(--pink); border-color: transparent; color: #9a6078; font-weight: 800; }
     .vote.no.selected { background: #ebe9eb; border-color: transparent; color: #6d6770; font-weight: 800; }
     .card[hidden], .section[hidden] { display: none; }
-    .extra-idea { margin: 4px 0 30px; padding: clamp(22px,4vw,34px); border: 1px solid var(--glass-border); border-radius: 30px; background: radial-gradient(circle at 94% 16%,rgba(222,211,255,.68) 0 9%,transparent 9.5%),linear-gradient(135deg,rgba(228,247,255,.58) 0 52%,rgba(235,228,255,.54) 52% 100%); -webkit-backdrop-filter: blur(24px) saturate(130%); backdrop-filter: blur(24px) saturate(130%); box-shadow: var(--shadow),inset 0 1px 0 rgba(255,255,255,.98); }
+    .extra-idea { margin: 4px 0 30px; padding: clamp(22px,4vw,34px); border: 1px solid var(--glass-border); border-radius: 30px; background: radial-gradient(circle at 94% 16%,rgba(220,210,250,.58) 0 9%,transparent 9.5%),linear-gradient(135deg,rgba(213,239,249,.5) 0 48%,rgba(226,219,248,.44) 72%,rgba(211,228,216,.4) 100%); -webkit-backdrop-filter: blur(26px) saturate(124%); backdrop-filter: blur(26px) saturate(124%); box-shadow: var(--shadow); }
     .extra-idea h2 { margin: 0; font-size: clamp(23px,3.2vw,32px); }
     .extra-idea p { margin: 6px 0 14px; color: var(--muted); font-size: 14px; }
-    .extra-input { display: block; width: 100%; min-height: 112px; resize: vertical; padding: 14px 16px; border: 1px solid rgba(92,130,170,.2); border-radius: 18px; outline: none; background: rgba(255,255,255,.88); color: var(--ink); font: inherit; line-height: 1.65; box-shadow: inset 0 1px 0 rgba(255,255,255,.8); transition: border-color .2s,box-shadow .2s; }
+    .extra-input { display: block; width: 100%; min-height: 112px; resize: vertical; padding: 14px 16px; border: 1px solid rgba(91,126,166,.17); border-radius: 18px; outline: none; background: rgba(225,239,244,.46); color: var(--ink); font: inherit; line-height: 1.65; transition: border-color .2s,box-shadow .2s; }
     .extra-input:focus { border-color: rgba(92,130,170,.48); box-shadow: 0 0 0 4px rgba(220,238,251,.72); }
     .extra-input::placeholder { color: #9aa1ae; }
     .extra-save-note { display: block; margin-top: 9px; color: #708b80; font-size: 12px; }
-    .results { margin-top: 22px; padding: clamp(22px,4vw,38px); border-radius: 32px; background: radial-gradient(circle at 96% 12%,rgba(215,202,255,.66) 0 9%,transparent 9.5%),linear-gradient(145deg,rgba(255,255,255,.58),rgba(213,239,255,.48) 58%,rgba(231,222,255,.54)); border: 1px solid var(--glass-border); -webkit-backdrop-filter: blur(26px) saturate(132%); backdrop-filter: blur(26px) saturate(132%); box-shadow: var(--shadow),inset 0 1px 0 rgba(255,255,255,.98); scroll-margin-top: 88px; }
+    .results { margin-top: 22px; padding: clamp(22px,4vw,38px); border-radius: 32px; background: radial-gradient(circle at 96% 12%,rgba(213,202,250,.58) 0 9%,transparent 9.5%),linear-gradient(145deg,rgba(215,238,247,.48),rgba(207,233,246,.4) 52%,rgba(226,219,248,.44) 78%,rgba(210,227,214,.38)); border: 1px solid var(--glass-border); -webkit-backdrop-filter: blur(28px) saturate(125%); backdrop-filter: blur(28px) saturate(125%); box-shadow: var(--shadow); scroll-margin-top: 88px; }
     .results h2 { margin: 0; font-size: clamp(26px,4vw,38px); }
     .results-intro { margin: 6px 0 21px; color: var(--muted); }
     .result-empty { padding: 25px; text-align: center; border: 1px dashed rgba(100,88,105,.2); border-radius: 18px; color: var(--muted); }
@@ -88,7 +88,7 @@
     .result-label.f { color: #9a6078; } .result-label.n { color: #6e6870; } .result-label.o { color: var(--blue-strong); }
     .other-dot { display: inline-block; font-size: .68em; transform: translateY(-.08em); }
     .result-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 21px; }
-    .result-actions button { min-height: 44px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--white); color: var(--ink); cursor: pointer; }
+    .result-actions button { min-height: 44px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 14px; background: rgba(224,238,244,.56); color: var(--ink); cursor: pointer; }
     .result-actions .strong { background: var(--blue); color: #4f7399; border-color: transparent; font-weight: 800; }
     .footer-note { margin: 28px 0 0; text-align: center; color: var(--muted); font-size: 14px; }
     .footer-note strong { display: block; margin-bottom: 5px; color: #71608f; font-size: 16px; }
@@ -156,7 +156,7 @@
         <button id="copyBtn">复制结果</button>
       </div>
     </section>
-    <p class="footer-note"><strong>杭州很大，周末很短，但只要见面就已经很好了。</strong>等你们按下心选，我们再把这些小愿望拼成刚刚好的周末。榜单和营业状态会变化，出发前我们再一起确认。</p>
+    <p class="footer-note"><strong>杭州很大，夏天很热，但只要见面，就已经很好了。</strong>等你们按下心选，我们再把这些小愿望拼成刚刚好的周末。榜单和营业状态会变化，出发前我们再一起确认。</p>
     <p class="tiny-disclaimer">重要但不严肃声明：本攻略由认真、期待，以及一点点不靠谱共同完成。如有错别字、漏项、过时或错误信息，请不要追责，YING正在忙着期待这次相聚。嘻嘻嘻嘻～</p>
     <details class="photo-credits"><summary>照片来源与许可</summary><p>景点与氛围照片来自 Wikimedia Commons，已裁切适配卡片，并按各文件页所示的 Creative Commons 或公有领域许可使用：<a href="https://commons.wikimedia.org/wiki/Category:Jiuxi" target="_blank" rel="noopener">九溪</a>、<a href="https://commons.wikimedia.org/wiki/File:West_Lake_Hangzhou.jpg" target="_blank" rel="noopener">西湖</a>、<a href="https://commons.wikimedia.org/wiki/File:Xixi_wetland.jpg" target="_blank" rel="noopener">西溪湿地</a>、<a href="https://commons.wikimedia.org/wiki/File:Tea_plantation_in_hangzhou.JPG" target="_blank" rel="noopener">杭州茶园</a>、<a href="https://commons.wikimedia.org/wiki/File:%E6%9D%AD%E5%B7%9E._%E8%BF%90%E6%B2%B3%E6%B0%B4%E4%B8%8A%E5%B7%B4%E5%A3%AB_%EF%BC%88%E5%B0%8F%E6%B2%B3%E7%9B%B4%E8%A1%97%EF%BC%89_-_panoramio_%281%29.jpg" target="_blank" rel="noopener">小河直街</a>、<a href="https://commons.wikimedia.org/wiki/File:Hefang_Street,_Hangzhou.jpg" target="_blank" rel="noopener">河坊街</a>、<a href="https://commons.wikimedia.org/wiki/File:Cafe_Interior_with_Coffee.jpg" target="_blank" rel="noopener">咖啡馆</a>、<a href="https://commons.wikimedia.org/wiki/File:Chinese_tea_house,_Beijing.jpg" target="_blank" rel="noopener">茶馆</a>、<a href="https://commons.wikimedia.org/wiki/File:Hangzhou_West_Lake_at_Night.jpg" target="_blank" rel="noopener">西湖夜景</a>、<a href="https://commons.wikimedia.org/wiki/File:Qianjiang_New_City_20230729.jpg" target="_blank" rel="noopener">钱江新城</a>、<a href="https://commons.wikimedia.org/wiki/File:Elegant_Interior_Of_The_Cocktailbar_%28220991479%29.jpeg" target="_blank" rel="noopener">小酒馆</a>、<a href="https://commons.wikimedia.org/wiki/File:Hefang_Street_%2825857144167%29.jpg" target="_blank" rel="noopener">夜市</a>。</p></details>
   </main>
@@ -291,7 +291,7 @@
         const lines = ['杭州暑假周末候选玩法｜我的选择',''];
         resultData().forEach(cat => { lines.push(`【${cat.title}】`,`♥ 心选：${cat.favorite.length ? cat.favorite.map(i=>i[2]).join('、') : '（无）'}`,`⊘ 婉拒：${cat.excluded.length ? cat.excluded.map(i=>i[2]).join('、') : '（无）'}`,`○ 其他未选：${cat.other.length ? cat.other.map(i=>i[2]).join('、') : '（无）'}`,''); });
         lines.push('【或许你还想……】',extraIdea.trim() || '（无）','');
-        lines.push('其他未选=不排斥，一键跟随～','杭州很大，周末很短，但只要见面就已经很好了。');
+        lines.push('其他未选=不排斥，一键跟随～','杭州很大，夏天很热，但只要见面，就已经很好了。');
         return lines.join('\n');
       }
       async function copyText(text, successText) {
