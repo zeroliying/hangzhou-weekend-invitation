@@ -294,7 +294,7 @@
       function saveChoices() { localStorage.setItem(STORAGE_KEY, JSON.stringify(choices)); }
       function escapeHtml(value) { return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
       function getState(id) { const c = choices[id] || {}; return c.excluded ? 'excluded' : c.favorite ? 'favorite' : 'other'; }
-      function ownerTitle() { return nickname.trim() ? `${nickname.trim()}的杭州周末选择` : '我的杭州周末选择'; }
+      function ownerTitle() { return nickname.trim() ? `${nickname.trim()}的杭州游玩选择` : '我的杭州游玩选择'; }
       function invalidateResult() { resultReady = false; resultUpdatedEl.hidden = true; }
       function choiceCounts() {
         const counts = { favorite:0, excluded:0, other:0 };
