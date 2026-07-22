@@ -72,6 +72,7 @@
     .result-row { display: grid; grid-template-columns: 90px 1fr; gap: 10px; margin: 7px 0; font-size: 14px; }
     .result-label { font-weight: 800; }
     .result-label.f { color: #745d9c; } .result-label.n { color: #6e6870; } .result-label.o { color: #6683a3; }
+    .other-dot { display: inline-block; font-size: .68em; transform: translateY(-.08em); }
     .result-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 21px; }
     .result-actions button { min-height: 44px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--white); color: var(--ink); cursor: pointer; }
     .result-actions .strong { background: var(--blue); color: #4f7094; border-color: transparent; font-weight: 800; }
@@ -113,7 +114,7 @@
   <main>
     <header class="hero">
       <p class="eyebrow">HANGZHOU WEEKEND · 三人份快乐</p>
-      <h1>花儿、33，欢迎来杭州！这个周末想和你们一起好好玩～</h1>
+      <h1>欢迎花儿33欢迎来杭州！这个周末和你们一起愉快度过～</h1>
       <p class="subtitle">两天半不够逛完杭州，但足够一起选出最想要的快乐。山水、夜风、躺平和好吃的都摆在这里——你们只管心动，行程交给我们之后再拼。</p>
     </header>
     <div id="sections"></div>
@@ -247,7 +248,7 @@
       }
       function generateResult(scroll = false) {
         resultEl.className = '';
-        resultEl.innerHTML = resultData().map(cat => `<div class="result-block"><h3>${cat.title}</h3>${resultRow('♥ 心选',cat.favorite,'f')}${resultRow('⊘ 婉拒',cat.excluded,'n')}${resultRow('○ 其他未选',cat.other,'o')}</div>`).join('');
+        resultEl.innerHTML = resultData().map(cat => `<div class="result-block"><h3>${cat.title}</h3>${resultRow('♥ 心选',cat.favorite,'f')}${resultRow('⊘ 婉拒',cat.excluded,'n')}${resultRow('<span class="other-dot">○</span> 其他未选',cat.other,'o')}</div>`).join('');
         resultReady = true;
         if (scroll) document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
         showToast('结果已保存 / 更新');
