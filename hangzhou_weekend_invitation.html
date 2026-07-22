@@ -8,28 +8,28 @@
   <style>
     :root {
       --ink: #48556f; --muted: #6f7d96; --paper: #f2faff; --white: #fff;
-      --pink: #f8e7ef; --pink-strong: #a46f88; --lavender: #e9e1ff; --lavender-strong: #7967ac;
+      --pink: #f5e9ee; --pink-strong: #967687; --lavender: #e9e5f2; --lavender-strong: #766d92;
       --mint: #e3f3ed; --mint-strong: #628f7c; --sage: #dce9df; --sage-strong: #6e8d79; --yellow: #fff2d2;
-      --blue: #d9f1ff; --blue-strong: #5687b1; --line: rgba(91,126,166,.17); --glass: rgba(238,247,252,.38); --glass-border: rgba(102,136,171,.16); --shadow: 0 18px 46px rgba(78,108,153,.13);
+      --blue: #deedf3; --blue-strong: #647f98; --line: rgba(100,126,150,.16); --glass: rgba(238,246,248,.36); --glass-border: rgba(108,133,151,.15); --shadow: 0 18px 46px rgba(78,101,130,.12);
       --radius: 26px; --toolbar-h: 72px;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; color: var(--ink); background: radial-gradient(circle at 14% 6%,rgba(195,233,255,.96),transparent 30%),radial-gradient(circle at 89% 22%,rgba(219,204,255,.86),transparent 34%),radial-gradient(circle at 14% 76%,rgba(203,224,209,.62),transparent 30%),radial-gradient(circle at 56% 88%,rgba(217,241,255,.62),transparent 35%),linear-gradient(145deg,#f1faff 0%,#e6f5fb 46%,#f0ebfb 78%,#edf5ef 100%); background-attachment: fixed; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif; line-height: 1.65; }
+    body { margin: 0; color: var(--ink); background: radial-gradient(circle at 14% 6%,rgba(210,230,239,.9),transparent 30%),radial-gradient(circle at 89% 22%,rgba(225,218,239,.82),transparent 34%),radial-gradient(circle at 14% 76%,rgba(207,223,212,.58),transparent 30%),radial-gradient(circle at 56% 88%,rgba(219,234,239,.56),transparent 35%),linear-gradient(145deg,#f3f8fa 0%,#eaf2f5 46%,#f0edf5 78%,#eef3ef 100%); background-attachment: fixed; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif; line-height: 1.65; }
     button { font: inherit; }
     .bg-shape { position: fixed; z-index: -1; border-radius: 999px; filter: blur(2px); opacity: .65; pointer-events: none; }
     .bg-1 { width: 280px; height: 280px; background: var(--blue); top: 7%; left: -160px; }
     .bg-2 { width: 340px; height: 340px; background: var(--lavender); top: 40%; right: -210px; }
     .bg-3 { width: 320px; height: 320px; background: var(--sage); bottom: 3%; left: -175px; opacity: .72; }
-    .toolbar { position: sticky; top: 0; z-index: 20; padding: 10px max(14px,env(safe-area-inset-left)); background: rgba(225,241,248,.42); -webkit-backdrop-filter: blur(30px) saturate(138%); backdrop-filter: blur(30px) saturate(138%); border-bottom: 1px solid rgba(101,136,168,.14); box-shadow: 0 8px 24px rgba(75,107,150,.09); }
+    .toolbar { position: sticky; top: 0; z-index: 20; padding: 10px max(14px,env(safe-area-inset-left)); background: rgba(228,239,243,.42); -webkit-backdrop-filter: blur(30px) saturate(118%); backdrop-filter: blur(30px) saturate(118%); border-bottom: 1px solid rgba(103,130,151,.13); box-shadow: 0 8px 24px rgba(75,96,121,.08); }
     .toolbar-inner { max-width: 1100px; margin: auto; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
     .toolbar-inner::-webkit-scrollbar { display: none; }
-    .tool-btn { flex: 0 0 auto; min-height: 42px; padding: 9px 15px; border: 1px solid rgba(91,126,166,.16); border-radius: 999px; background: rgba(226,239,247,.5); -webkit-backdrop-filter: blur(16px) saturate(125%); backdrop-filter: blur(16px) saturate(125%); color: var(--ink); cursor: pointer; box-shadow: 0 6px 18px rgba(77,107,150,.08); transition: .2s ease; }
+    .tool-btn { flex: 0 0 auto; min-height: 42px; padding: 9px 15px; border: 1px solid rgba(98,126,151,.15); border-radius: 999px; background: rgba(229,238,242,.48); -webkit-backdrop-filter: blur(16px) saturate(112%); backdrop-filter: blur(16px) saturate(112%); color: var(--ink); cursor: pointer; box-shadow: 0 6px 18px rgba(77,98,123,.07); transition: .2s ease; }
     .tool-btn:hover, .tool-btn:focus-visible { transform: translateY(-1px); border-color: rgba(92,130,170,.42); }
-    .tool-btn.active { background: rgba(201,231,247,.78); border-color: rgba(83,126,165,.2); color: #4f789d; font-weight: 700; }
-    .tool-btn.primary { background: rgba(221,210,249,.74); border-color: rgba(116,96,166,.18); color: #6f5c9c; font-weight: 700; }
+    .tool-btn.active { background: rgba(211,229,237,.76); border-color: rgba(91,122,148,.18); color: #5d788f; font-weight: 700; }
+    .tool-btn.primary { background: rgba(225,219,239,.72); border-color: rgba(113,102,145,.16); color: #6f6689; font-weight: 700; }
     main { max-width: 1100px; margin: auto; padding: 52px 18px 80px; }
-    .hero { position: relative; padding: clamp(28px,6vw,58px); border: 1px solid var(--glass-border); border-radius: 36px; background: radial-gradient(circle at 91% 18%,rgba(231,244,250,.46) 0 12%,transparent 12.5%),radial-gradient(circle at 78% 104%,rgba(210,196,255,.62) 0 27%,transparent 27.5%),linear-gradient(135deg,rgba(211,239,251,.58),rgba(205,229,245,.43) 48%,rgba(225,216,249,.54) 78%,rgba(214,230,218,.42)); -webkit-backdrop-filter: blur(26px) saturate(128%); backdrop-filter: blur(26px) saturate(128%); box-shadow: var(--shadow); overflow: hidden; }
+    .hero { position: relative; padding: clamp(28px,6vw,58px); border: 1px solid var(--glass-border); border-radius: 36px; background: radial-gradient(circle at 91% 18%,rgba(232,240,243,.42) 0 12%,transparent 12.5%),radial-gradient(circle at 78% 104%,rgba(220,213,238,.56) 0 27%,transparent 27.5%),linear-gradient(135deg,rgba(218,235,242,.54),rgba(214,229,237,.4) 48%,rgba(229,224,240,.5) 78%,rgba(216,228,219,.4)); -webkit-backdrop-filter: blur(26px) saturate(112%); backdrop-filter: blur(26px) saturate(112%); box-shadow: var(--shadow); overflow: hidden; }
     .hero:after { content: "杭州 · 相见"; position: absolute; right: -12px; bottom: -25px; color: rgba(255,255,255,.54); font-size: clamp(48px,9vw,96px); font-weight: 900; letter-spacing: .08em; white-space: nowrap; }
     .invite-from { position: relative; z-index: 1; display: inline-flex; align-items: center; margin: 0 0 14px; padding: 6px 12px; border: 1px solid rgba(92,130,170,.14); border-radius: 999px; background: rgba(218,237,245,.5); color: #617fa1; font-size: 13px; font-weight: 800; letter-spacing: .08em; }
     .eyebrow { position: relative; z-index: 1; margin: 0 0 9px; font-size: 13px; letter-spacing: .18em; font-weight: 800; color: var(--blue-strong); }
@@ -44,7 +44,7 @@
     .section[data-category="indoor"] .count { background: var(--mint); color: var(--mint-strong); }
     .section[data-category="food"] .count { background: var(--yellow); color: #9a7b38; }
     .grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 15px; }
-    .card { position: relative; min-width: 0; padding: 21px; background: linear-gradient(145deg,rgba(224,240,247,.45),rgba(226,220,246,.24) 72%,rgba(213,229,218,.24)); border: 1px solid var(--glass-border); border-radius: var(--radius); -webkit-backdrop-filter: blur(26px) saturate(122%); backdrop-filter: blur(26px) saturate(122%); box-shadow: var(--shadow); overflow: hidden; transition: opacity .22s,filter .22s,transform .22s,border .22s; }
+    .card { position: relative; min-width: 0; padding: 21px; background: linear-gradient(145deg,rgba(226,238,242,.42),rgba(230,226,240,.22) 72%,rgba(216,228,219,.22)); border: 1px solid var(--glass-border); border-radius: var(--radius); -webkit-backdrop-filter: blur(26px) saturate(110%); backdrop-filter: blur(26px) saturate(110%); box-shadow: var(--shadow); overflow: hidden; transition: opacity .22s,filter .22s,transform .22s,border .22s; }
     .card:before { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(118deg,rgba(207,232,242,.22) 0 10%,transparent 30% 72%,rgba(210,224,214,.12) 100%); pointer-events: none; }
     .card > * { position: relative; z-index: 1; }
     .card:hover { transform: translateY(-2px); }
@@ -69,14 +69,14 @@
     .vote.fav.selected { background: var(--pink); border-color: transparent; color: #9a6078; font-weight: 800; }
     .vote.no.selected { background: #ebe9eb; border-color: transparent; color: #6d6770; font-weight: 800; }
     .card[hidden], .section[hidden] { display: none; }
-    .extra-idea { margin: 4px 0 30px; padding: clamp(22px,4vw,34px); border: 1px solid var(--glass-border); border-radius: 30px; background: radial-gradient(circle at 94% 16%,rgba(220,210,250,.58) 0 9%,transparent 9.5%),linear-gradient(135deg,rgba(213,239,249,.5) 0 48%,rgba(226,219,248,.44) 72%,rgba(211,228,216,.4) 100%); -webkit-backdrop-filter: blur(26px) saturate(124%); backdrop-filter: blur(26px) saturate(124%); box-shadow: var(--shadow); }
+    .extra-idea { margin: 4px 0 30px; padding: clamp(22px,4vw,34px); border: 1px solid var(--glass-border); border-radius: 30px; background: radial-gradient(circle at 94% 16%,rgba(225,219,239,.52) 0 9%,transparent 9.5%),linear-gradient(135deg,rgba(219,236,242,.46) 0 48%,rgba(230,225,240,.4) 72%,rgba(214,226,217,.38) 100%); -webkit-backdrop-filter: blur(26px) saturate(110%); backdrop-filter: blur(26px) saturate(110%); box-shadow: var(--shadow); }
     .extra-idea h2 { margin: 0; font-size: clamp(23px,3.2vw,32px); }
     .extra-idea p { margin: 6px 0 14px; color: var(--muted); font-size: 14px; }
     .extra-input { display: block; width: 100%; min-height: 112px; resize: vertical; padding: 14px 16px; border: 1px solid rgba(91,126,166,.17); border-radius: 18px; outline: none; background: rgba(225,239,244,.46); color: var(--ink); font: inherit; line-height: 1.65; transition: border-color .2s,box-shadow .2s; }
     .extra-input:focus { border-color: rgba(92,130,170,.48); box-shadow: 0 0 0 4px rgba(220,238,251,.72); }
     .extra-input::placeholder { color: #9aa1ae; }
     .extra-save-note { display: block; margin-top: 9px; color: #708b80; font-size: 12px; }
-    .results { margin-top: 22px; padding: clamp(22px,4vw,38px); border-radius: 32px; background: radial-gradient(circle at 96% 12%,rgba(213,202,250,.58) 0 9%,transparent 9.5%),linear-gradient(145deg,rgba(215,238,247,.48),rgba(207,233,246,.4) 52%,rgba(226,219,248,.44) 78%,rgba(210,227,214,.38)); border: 1px solid var(--glass-border); -webkit-backdrop-filter: blur(28px) saturate(125%); backdrop-filter: blur(28px) saturate(125%); box-shadow: var(--shadow); scroll-margin-top: 88px; }
+    .results { margin-top: 22px; padding: clamp(22px,4vw,38px); border-radius: 32px; background: radial-gradient(circle at 96% 12%,rgba(222,215,238,.52) 0 9%,transparent 9.5%),linear-gradient(145deg,rgba(220,235,241,.44),rgba(216,232,239,.37) 52%,rgba(230,225,240,.4) 78%,rgba(213,226,216,.36)); border: 1px solid var(--glass-border); -webkit-backdrop-filter: blur(28px) saturate(110%); backdrop-filter: blur(28px) saturate(110%); box-shadow: var(--shadow); scroll-margin-top: 88px; }
     .results h2 { margin: 0; font-size: clamp(26px,4vw,38px); }
     .results-intro { margin: 6px 0 21px; color: var(--muted); }
     .result-empty { padding: 25px; text-align: center; border: 1px dashed rgba(100,88,105,.2); border-radius: 18px; color: var(--muted); }
@@ -143,7 +143,7 @@
     <section class="extra-idea" aria-labelledby="extraIdeaTitle">
       <h2 id="extraIdeaTitle">或许你还想……</h2>
       <p>清单之外的小愿望，也可以偷偷放进来。想去哪里、想吃什么，或者只是想一起做件小事，都可以写。</p>
-      <textarea class="extra-input" id="extraIdea" rows="4" placeholder="比如：想在我的床上睡懒觉、想半夜一起吃泡面聊天、想穿着拖鞋去楼下买东西、想突然决定去看一场夜里的风景、想买一堆没必要但很快乐的零食、想把“出门玩”临时改成“躺平大赛”、想凌晨一点突然说一句“要不要出去走走”、想拍一组丑丑但很好笑的照片……"></textarea>
+      <textarea class="extra-input" id="extraIdea" rows="4" placeholder="比如：想在我的床上睡懒觉、想半夜一起吃泡面聊天、想穿着拖鞋去楼下买东西、想突然决定去看一场夜里的风景、想把“出门玩”临时改成“躺平大赛”、想凌晨一点突然说一句“要不要出去走走”、想拍一组丑丑但很好笑的照片……"></textarea>
       <span class="extra-save-note">输入框为空时，轻点一下就能复制这段灵感；你写下的小愿望也会自动保存在当前浏览器，并和最终选择结果拼在一起。</span>
     </section>
 
@@ -180,7 +180,7 @@
           ['xixi','🛶','西溪国家湿地公园慢游','坐摇橹船、看水乡湿地；不赶路的话很适合三个人聊天。',['经典杭州','湿地','半天+']],
           ['majiawu','🥾','马家坞观景台爬山半日','爬到高处看山和城，运动量有一点，但不会把周末变成拉练。',['爬山','观景','半天']],
           ['xiaohestreet','🏘️','大兜路 + 小河直街慢逛','沿运河看看老街、小店和白墙黛瓦，累了随时找地方坐下。',['运河','老街','慢逛']],
-          ['sunset','🌅','把杭州的晚霞收进口袋','不保证每天都有，但如果云和风刚好，就一起等天空慢慢变成粉蓝和橘金。',['晚霞','拍照','浪漫']],
+          ['sunset','🌅','把杭州的晚霞收进口袋','如果云和风刚好，就一起等天空慢慢变成粉蓝和橘金。',['晚霞','拍照','浪漫']],
           ['coffee','☕','找一家景观咖啡店慢慢坐','不卷打卡，挑湖边、茶园边或社区店聊到尽兴。',['咖啡','聊天','松弛']],
           ['tea','🍵','茶馆喝茶发呆','体验杭州式慢生活，认真喝茶或纯聊天都行。',['喝茶','聊天','松弛']]
         ]},
