@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fffaf6">
+  <title>杭州暑假周末候选玩法</title>
+  <style>
+    :root {
+      --ink: #4f4a55; --muted: #7f7885; --paper: #fffaf6; --white: #fffefd;
+      --pink: #f7dfe5; --pink-strong: #c76f88; --lavender: #e9e2f5;
+      --mint: #dff1e7; --mint-strong: #5c8c77; --yellow: #faedc9;
+      --blue: #dfeef7; --line: rgba(100,88,105,.13); --shadow: 0 12px 34px rgba(112,93,111,.10);
+      --radius: 26px; --toolbar-h: 72px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif; line-height: 1.65; }
+    button { font: inherit; }
+    .bg-shape { position: fixed; z-index: -1; border-radius: 999px; filter: blur(2px); opacity: .65; pointer-events: none; }
+    .bg-1 { width: 260px; height: 260px; background: var(--pink); top: 8%; left: -150px; }
+    .bg-2 { width: 340px; height: 340px; background: var(--blue); top: 42%; right: -210px; }
+    .toolbar { position: sticky; top: 0; z-index: 20; padding: 10px max(14px,env(safe-area-inset-left)); background: rgba(255,250,246,.88); backdrop-filter: blur(18px); border-bottom: 1px solid var(--line); }
+    .toolbar-inner { max-width: 1100px; margin: auto; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+    .toolbar-inner::-webkit-scrollbar { display: none; }
+    .tool-btn { flex: 0 0 auto; min-height: 42px; padding: 9px 15px; border: 1px solid var(--line); border-radius: 999px; background: var(--white); color: var(--ink); cursor: pointer; box-shadow: 0 4px 14px rgba(112,93,111,.06); transition: .2s ease; }
+    .tool-btn:hover, .tool-btn:focus-visible { transform: translateY(-1px); border-color: rgba(199,111,136,.35); }
+    .tool-btn.active { background: var(--pink); border-color: transparent; color: #87485b; font-weight: 700; }
+    .tool-btn.primary { background: var(--mint); color: #466f5e; font-weight: 700; }
+    main { max-width: 1100px; margin: auto; padding: 52px 18px 80px; }
+    .hero { position: relative; padding: clamp(28px,6vw,58px); border: 1px solid rgba(255,255,255,.8); border-radius: 36px; background: linear-gradient(135deg,rgba(247,223,229,.92),rgba(250,237,201,.76) 48%,rgba(223,241,231,.9)); box-shadow: var(--shadow); overflow: hidden; }
+    .hero:after { content: "杭州 · 周末"; position: absolute; right: -12px; bottom: -25px; color: rgba(255,255,255,.54); font-size: clamp(48px,9vw,96px); font-weight: 900; letter-spacing: .08em; white-space: nowrap; }
+    .eyebrow { position: relative; z-index: 1; margin: 0 0 9px; font-size: 13px; letter-spacing: .18em; font-weight: 800; color: #8d6571; }
+    h1 { position: relative; z-index: 1; margin: 0; max-width: 820px; font-size: clamp(30px,5.4vw,58px); line-height: 1.16; letter-spacing: -.035em; }
+    .subtitle { position: relative; z-index: 1; max-width: 780px; margin: 18px 0 0; color: #6f6873; font-size: clamp(15px,2vw,18px); }
+    .tip { margin: 22px 0 48px; padding: 18px 21px; background: var(--white); border: 1px solid var(--line); border-radius: 20px; color: var(--muted); box-shadow: 0 8px 24px rgba(112,93,111,.06); }
+    .tip strong { color: #8e5365; }
+    .section { margin: 0 0 52px; scroll-margin-top: 90px; }
+    .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin: 0 4px 17px; }
+    .section-title { margin: 0; font-size: clamp(24px,3vw,34px); line-height: 1.2; }
+    .section-kicker { margin: 5px 0 0; color: var(--muted); font-size: 14px; }
+    .count { flex: 0 0 auto; padding: 6px 11px; border-radius: 999px; background: var(--lavender); color: #716281; font-size: 13px; font-weight: 700; }
+    .grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 15px; }
+    .card { min-width: 0; padding: 21px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); transition: opacity .22s,filter .22s,transform .22s,border .22s; }
+    .card:hover { transform: translateY(-2px); }
+    .card.excluded { opacity: .53; filter: grayscale(.45); }
+    .card.favorite { border-color: rgba(199,111,136,.35); }
+    .card-top { display: flex; align-items: flex-start; gap: 13px; }
+    .emoji { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border-radius: 15px; background: var(--card-tint,var(--blue)); font-size: 23px; }
+    .card-copy { min-width: 0; flex: 1; }
+    .card h3 { margin: 1px 0 5px; font-size: 18px; line-height: 1.35; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 13px; }
+    .tag { padding: 3px 9px; border-radius: 999px; background: #f7f4f2; color: #837b80; font-size: 12px; }
+    .picks { margin-top: 14px; padding: 12px 13px; border-radius: 16px; background: color-mix(in srgb,var(--card-tint) 42%,white); }
+    .picks-title { display: block; margin-bottom: 6px; color: #6d6670; font-size: 12px; font-weight: 800; letter-spacing: .04em; }
+    .pick-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 5px; }
+    .pick-list li { position: relative; padding-left: 13px; color: #706a73; font-size: 13px; line-height: 1.45; }
+    .pick-list li:before { content: "•"; position: absolute; left: 0; color: var(--pink-strong); }
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 17px; }
+    .vote { min-height: 43px; border: 1px solid var(--line); border-radius: 14px; background: #fff; color: var(--ink); cursor: pointer; transition: .18s ease; }
+    .vote:hover, .vote:focus-visible { transform: translateY(-1px); box-shadow: 0 6px 15px rgba(112,93,111,.09); }
+    .vote.fav.selected { background: var(--pink); border-color: transparent; color: #a04f68; font-weight: 800; }
+    .vote.no.selected { background: #ebe9eb; border-color: transparent; color: #6d6770; font-weight: 800; }
+    .card[hidden], .section[hidden] { display: none; }
+    .results { margin-top: 22px; padding: clamp(22px,4vw,38px); border-radius: 32px; background: linear-gradient(145deg,#fff,#f7f1f8); border: 1px solid var(--line); box-shadow: var(--shadow); scroll-margin-top: 88px; }
+    .results h2 { margin: 0; font-size: clamp(26px,4vw,38px); }
+    .results-intro { margin: 6px 0 21px; color: var(--muted); }
+    .result-empty { padding: 25px; text-align: center; border: 1px dashed rgba(100,88,105,.2); border-radius: 18px; color: var(--muted); }
+    .result-block { padding: 19px 0; border-top: 1px solid var(--line); }
+    .result-block:first-child { border-top: 0; }
+    .result-block h3 { margin: 0 0 10px; }
+    .result-row { display: grid; grid-template-columns: 90px 1fr; gap: 10px; margin: 7px 0; font-size: 14px; }
+    .result-label { font-weight: 800; }
+    .result-label.f { color: #a64e69; } .result-label.n { color: #6e6870; } .result-label.o { color: #73866e; }
+    .result-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 21px; }
+    .result-actions button { min-height: 44px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--white); color: var(--ink); cursor: pointer; }
+    .result-actions .strong { background: var(--mint); color: #466f5e; border-color: transparent; font-weight: 800; }
+    .footer-note { margin: 28px 0 0; text-align: center; color: var(--muted); font-size: 14px; }
+    .toast { position: fixed; z-index: 50; left: 50%; bottom: max(22px,env(safe-area-inset-bottom)); transform: translate(-50%,20px); padding: 11px 17px; border-radius: 999px; color: white; background: rgba(77,71,81,.92); opacity: 0; pointer-events: none; transition: .25s ease; box-shadow: var(--shadow); }
+    .toast.show { opacity: 1; transform: translate(-50%,0); }
+    @media (max-width: 680px) {
+      :root { --radius: 22px; }
+      .toolbar { padding-right: 10px; padding-left: 10px; }
+      main { padding: 26px 13px 62px; }
+      .hero { border-radius: 28px; }
+      .hero:after { font-size: 48px; }
+      .tip { margin-bottom: 38px; }
+      .grid { grid-template-columns: 1fr; }
+      .section { margin-bottom: 42px; }
+      .card { padding: 18px; }
+      .result-row { grid-template-columns: 75px 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *,*:before,*:after { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="bg-shape bg-1"></div><div class="bg-shape bg-2"></div>
+  <nav class="toolbar" aria-label="候选筛选与操作">
+    <div class="toolbar-inner">
+      <button class="tool-btn active" data-filter="all">显示全部</button>
+      <button class="tool-btn" data-filter="favorite">只看心选</button>
+      <button class="tool-btn" data-filter="excluded">查看已排除</button>
+      <button class="tool-btn" id="resetBtn">恢复默认</button>
+      <button class="tool-btn primary" id="generateTop">生成选择结果</button>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <p class="eyebrow">HANGZHOU WEEKEND · 三人份快乐</p>
+      <h1>欢迎花儿和33来杭州！你们更想怎么玩？</h1>
+      <p class="subtitle">不先排死行程。白天、晚上、室内放松和吃什么都可以自由心选或排除，最后把选择结果发回来就好。</p>
+    </header>
+    <p class="tip"><strong>怎么选：</strong>点击“♡”表示想去，点击“⊘”表示不想去。没有操作的项目会归入“其他未选”：不排斥，也没非去不可。选择会自动保存在当前浏览器里，但是没有后台数据库保存，所以选择完记得复制给我哦。</p>
+
+    <div id="sections"></div>
+
+    <section class="results" id="results">
+      <h2>最终选择结果</h2>
+      <p class="results-intro">按四类自动归队，方便一键发回群里。</p>
+      <div id="resultContent" class="result-empty">还没有生成结果，先随便点点看，或者直接生成也可以。</div>
+      <div class="result-actions">
+        <button class="strong" id="generateBottom">生成或刷新结果</button>
+        <button id="copyBtn">复制结果</button>
+        <button id="shareBtn">系统分享</button>
+      </div>
+    </section>
+    <p class="footer-note">具体餐厅活动地点等，等大家选完后再决定。榜单与门店状态会变化，出发前请在大众点评或高德地图确认营业时间、地址和预约要求。</p>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      'use strict';
+      const STORAGE_KEY = 'hangzhou-weekend-choice-list-v1';
+      const categories = [
+        { id:'day', title:'白天候选', kicker:'有山有水，也有空调和咖啡', tint:'#dfeef7', items:[
+          ['westlake','🌿','九溪十八涧—龙井—满觉陇轻徒步','树荫、茶园和溪水都在线；暑假建议早点出发。',['经典杭州','自然','半天']],
+          ['beishan','🪷','北山街—曲院风荷—杨公堤慢逛','经典但不赶路，看看荷花、坐坐湖边。',['西湖','散步','拍照']],
+          ['xixi','🛶','西溪国家湿地公园慢游','坐摇橹船、看水乡湿地；不赶路的话很适合三个人聊天。',['经典杭州','湿地','半天+']],
+          ['lingyin','🌲','灵隐—法喜寺—梅灵南路','寺院、山林和茶村任选组合，清早去更舒服。',['经典杭州','文化','山林']],
+          ['lingshan','🕳️','灵山幻境 / 灵山洞避暑','溶洞里清凉一点，适合想看自然又怕晒的人。',['自然','清凉','近郊']],
+          ['liangzhu','🏺','良渚博物院 + 良渚古城遗址公园','五千年文明体验，室内馆与大遗址可以自由组合。',['文化','博物馆','半天+']],
+          ['silk','🧵','中国丝绸博物馆','从织物、服饰到丝路故事，馆舍好逛也好拍。',['文化','室内','免费展馆']],
+          ['gongmei','🪭','桥西历史街区 + 杭州工艺美术博物馆','运河边逛老街，顺便看扇、伞、刀剪的杭州手艺。',['文化','运河','慢逛']],
+          ['hefeng','🏮','南宋御街—河坊街—十五奎巷','老城烟火、古街小店与巷子散步一网打尽。',['逛街','老城','小吃']],
+          ['hubin','🛍️','湖滨步行街逛街 + 看一眼西湖','城市逛街选手友好，热了随时进商场续命。',['逛街','轻松','市中心']],
+          ['tianmuli','🎨','天目里看建筑、展览和小店','设计感园区，适合拍照、闲逛、随缘看展。',['设计','逛街','拍照']],
+          ['coffee','☕','找一家景观咖啡店慢慢坐','不卷打卡，挑湖边、茶园边或社区店聊到尽兴。',['咖啡','聊天','松弛']]
+        ]},
+        { id:'night', title:'晚上候选', kicker:'晚风、灯光、小酒，选一个舒服的夜晚', tint:'#e9e2f5', items:[
+          ['westlake-night','🌙','西湖夜游 + 湖边散步','看亮灯后的湖面，走累了就近找地方坐。',['自然','夜景','散步']],
+          ['qiantang','🌉','钱江新城城市阳台看夜景','钱塘江、城市天际线和灯光，氛围偏现代。',['夜景','城市','拍照']],
+          ['canal','🚤','京杭大运河夜游 / 拱宸桥夜逛','坐船或沿河散步，感受另一面的杭州水岸。',['文化','运河','夜游']],
+          ['wushan','🏯','吴山城隍阁登高看城湖夜色','从山上看老城与西湖交界，文化味更浓。',['文化','登高','夜景']],
+          ['xiaohe','🏘️','小河直街夜晚慢逛','白墙黛瓦配小店灯光，适合饭后散步聊天。',['老街','散步','松弛']],
+          ['bar','🍸','找一家安静小酒馆喝一杯','选精酿、鸡尾酒或自然酒，重点是能好好聊天。',['酒吧','聊天','微醺']],
+          ['livehouse','🎵','Livehouse / 爵士现场','如果当晚有合适演出，就一起听现场。',['音乐','现场','看缘分']],
+          ['nightmarket','🍢','夜市闲逛 + 随机小吃','不做攻略式扫街，看到想吃的就分着尝。',['夜市','小吃','随性']]
+        ]},
+        { id:'indoor', title:'室内放松活动', kicker:'下雨、太热或单纯想躺的时候', tint:'#dff1e7', items:[
+          ['spa','💆','三个人一起做 SPA / 按摩','走累了集中回血，选交通方便、环境舒服的店。',['放松','回血','室内']],
+          ['home','🎲','在家玩桌游看电影夜','点外卖、开空调，谁都不用维持旅游状态。',['宅家','桌游','电影']],
+          ['cook','🥟','一起做饭 / 包饺子 / 做甜品','分工合作再一起吃掉，失败也算节目效果。',['动手','宅家','治愈']],
+          ['ktv','🎤','KTV 唱到尽兴','老同学歌单随机播放，允许跑调和抢麦。',['唱歌','室内','热闹']],
+          ['pottery','🏺','陶艺 / 银饰 / 手作体验','一起做一个能带走的小纪念，慢慢玩不赶时间。',['手作','纪念','安静']],
+          ['boardgame','🃏','桌游店 / 剧本轻体验','找规则不太重、三个人也好玩的项目。',['桌游','互动','空调']],
+          ['cinema','🎬','挑一部电影去影院','天气不配合时的稳妥选项，看完还能接着聊。',['电影','轻松','室内']],
+          ['tea','🍵','茶馆喝茶发呆','体验杭州式慢生活，认真喝茶或纯聊天都行。',['喝茶','聊天','安静']]
+        ]},
+        { id:'food', title:'饮食候选', kicker:'三个人的胃也要参与投票', tint:'#faedc9', items:[
+          ['hangzhou-food','🥢','正式吃一顿杭帮菜','龙井虾仁、东坡肉、宋嫂鱼羹等，挑一家认真坐下吃。',['正餐','杭州味','必选题']],
+          ['taizhou-food','🦀','正式吃一顿台州菜','海鲜、家烧与糯叽叽，鲜味派可以重点心选。',['正餐','海鲜','浙江味']],
+          ['quzhou-food','🌶️','正式吃一顿衢州菜','鸭头、兔头、小炒和辣味，适合无辣不欢选手。',['正餐','辣味','浙江味']],
+          ['burger','🍔','杭州 TOP1 汉堡（推荐周五中午在家外卖）','同学刚到先轻松开局，不排队、不赶路、边吃边聊。',['周五中午','外卖','轻松开场']],
+          ['noodle','🍜','杭州面馆 / 片儿川','虾爆鳝、片儿川或拌川，适合一顿简单又本地的。',['面食','本地','快手']],
+          ['snacks','🥟','知味观式杭州小吃拼盘','小笼、猫耳朵、定胜糕等，三个人分着尝最合适。',['小吃','分享','少量多样']],
+          ['hotpot','🍲','火锅 / 烧烤，稳稳吃开心','当大家不想研究地方菜时，选一个最不会出错的。',['聚餐','热闹','稳妥']],
+          ['brunch','🥐','睡到自然醒再吃早午餐','咖啡、面包、蛋和慢悠悠的聊天，主打不赶。',['早午餐','咖啡','松弛']],
+          ['dessert','🍧','夏日甜品 / 冰品专场','逛累后的糖分补给，找一家坐着慢慢吃。',['甜品','消暑','休息']],
+          ['latefood','🍗','夜宵外卖回家吃','把快乐打包回家，边看电影边继续聊。',['夜宵','外卖','宅家']]
+        ]}
+      ];
+
+      const recommendations = {
+        westlake:['九溪烟树：经典入口，雨后水汽最有氛围','九溪十八涧：沿溪踩水慢走，建议穿防滑鞋','龙井村 / 满觉陇：茶园小路与桂花树下收尾'],
+        beishan:['曲院风荷：暑假荷花主场','孤山—西泠桥：湖景、人文与梧桐树影','茅家埠：比热门湖滨安静，适合坐一会儿'],
+        xixi:['周家村入口：首次去路线最好理解','深潭口：水乡街巷与摇橹船体验','高庄—莲花滩观鸟区：园林与湿地景观兼得'],
+        lingyin:['灵隐寺 / 飞来峰：石刻与古寺经典线','法喜讲寺：上天竺的黄色院墙很上镜','中国茶叶博物馆双峰馆：顺路看茶文化'],
+        lingshan:['灵山景区：溶洞避暑主选','云栖竹径：竹林短途散步备选','六和塔：想看钱塘江景可顺路组合'],
+        liangzhu:['良渚博物院：先了解文明脉络','良渚古城遗址公园：鹿苑、宫殿区与大地景观','玉鸟集：餐饮、书店和设计小店适合收尾'],
+        silk:['中国丝绸博物馆：服饰馆与丝路馆优先','太子湾公园：馆外顺路散步','净慈寺—雷峰塔：想继续文化线可二选一'],
+        gongmei:['中国刀剪剑博物馆：杭州传统手工业','中国伞博物馆 / 中国扇博物馆：同片区可连逛','桥西直街—拱宸桥：运河边慢走收尾'],
+        hefeng:['德寿宫遗址博物馆：南宋文化体验','十五奎巷—大马弄：老城烟火与菜市场','南宋御街—河坊街：小店与老建筑集中'],
+        hubin:['湖滨步行街：逛街与西湖无缝切换','湖滨银泰 in77：最稳妥的空调补给站','集贤亭：傍晚沿湖散步的漂亮节点'],
+        tianmuli:['天目里园区：清水混凝土建筑与公共艺术','单向空间：书店与文化活动','茑屋书店 / 蓝瓶咖啡：适合慢坐休息'],
+        coffee:['蓝瓶咖啡（天目里）：建筑氛围突出','庆春朴门（灵隐）：庭院与山林感','湖畔居茶楼：想从咖啡切换成湖边喝茶'],
+        'westlake-night':['集贤亭：湖边日落与夜色衔接','北山街：梧桐树下看亮灯的西湖','长桥公园：雷峰塔经典夜景机位'],
+        qiantang:['钱江新城城市阳台：天际线正面视角','杭州大剧院—市民中心：建筑夜景集中','闻涛路滨江步道：适合吹风骑行'],
+        canal:['武林门码头：大运河夜游常用起点','拱宸桥：老运河地标','小河直街 / 大兜路：下船后继续吃逛'],
+        wushan:['城隍阁：登高看城湖交界','江湖汇观亭：免费观景备选','鼓楼—伍公山：老城夜行路线'],
+        xiaohe:['小河直街：白墙黛瓦与沿河小店','大兜路历史街区：香积寺旁慢走','富义仓：运河粮仓建筑与咖啡空间'],
+        bar:['Eudora Station：庭院餐吧，三人聊天友好','酒球会：精酿、现场与年轻氛围','么哈 MOJAR：高德榜提名的塔可微醺据点'],
+        livehouse:['酒球会：杭州老牌现场空间','MAO Livehouse 杭州：关注周末演出排期','黄楼爵士俱乐部：偏安静的爵士夜'],
+        nightmarket:['武林夜市：市中心、摊位密集','吴山夜市：古玩小物与夜逛氛围','胜利河美食街：更偏夜宵与聚餐'],
+        spa:['水裹·汤泉生活：适合长时间躺平','曲水兰亭：环境型按摩与餐饮组合','涟泉大江户：日式汤泉氛围备选'],
+        home:['三人桌游：璀璨宝石、卡坦岛、展翅翱翔','电影方向：轻喜剧、悬疑或杭州取景片','外卖搭配：汉堡、炸鸡、甜品一次到齐'],
+        cook:['盒马 / 山姆：一次采购食材与甜品','大马弄菜场：顺便体验老杭州烟火气','菜单建议：包饺子、寿喜锅、提拉米苏三选一'],
+        ktv:['纯 K：曲库与餐食相对稳定','INLOVE KTV：适合朋友聚会','魅 KTV：商场店较多，方便就近选'],
+        pottery:['桥西历史街区手作工坊：和运河线组合','满觉陇陶艺工作室：山林氛围更松弛','天目里周末手作市集：先查当周活动'],
+        boardgame:['游卡桌游：经典桌游选择较全','商场桌游店：交通方便、空调稳定','三人优先问店员：轻策略或合作类游戏'],
+        cinema:['百老汇影城（杭州嘉里中心）：逛吃方便','CGV 影城（杭州来福士）：可接钱江新城夜景','浙影时代影城：本地影院备选'],
+        tea:['湖畔居：临西湖喝茶的经典选项','青藤茶馆：老杭州茶馆氛围','中国茶叶博物馆茶体验：和龙井线组合'],
+        'hangzhou-food':['杭州酒家（延安路店）：高德榜；叫花鸡、熏鱼','入江南（虎跑店）：高德榜；庭院与改良西湖醋鱼','赵府私厨（河坊街店）：高德榜；东坡肉、酱鸭','勇贤小吃：大众点评必吃榜烟火小馆线索'],
+        'taizhou-food':['新荣记（西溪店）：经典台州菜，预算较高','荣小馆：黄鱼年糕、沙蒜豆面等台州风味','台州府 / 临海菜馆：适合找更家常的海鲜小炒'],
+        'quzhou-food':['衢州人家：鸭头、兔头与小炒路线','衢饭儿：更年轻化的衢州菜选择','老裴鸭头：适合外带“三头一掌”当夜宵'],
+        burger:['Burger LAB 汉堡实验室：中山中路老牌人气店','SUPER 27：蒸笼小汉堡有辨识度','PANDROSOS 汉堡店：偏外卖型的美式汉堡'],
+        noodle:['李犟大爆鳝面：高德榜；虾爆鳝拌川','小辫子面店：2026 米其林必比登推介','复兴面王 / 慧娟面馆：老杭州面馆路线'],
+        snacks:['知味观（湖滨总店）：高德榜；老字号点心','新丰小吃：小笼、牛肉粉丝与生煎','游埠豆浆：咸豆浆配油条的早餐路线'],
+        hotpot:['老秦凉都黄牛肉馆：高德榜；现切牛肉','肉本家·炭烤肉：高德榜；全程代烤','盛邦肥牛：高德榜；朋友聚餐型火锅'],
+        brunch:['Baker & Spice：面包咖啡与轻食稳定','brunch 304：偏社区感的早午餐','天目里园区餐厅：适合吃完继续逛'],
+        dessert:['BAN SUCRÉ 半甜不甜：高德榜甜品线索','知味观：荷花酥、定胜糕等杭州点心','南宋胡记：中式糕点伴手礼'],
+        latefood:['黄龙海鲜大排档：高德榜；椒盐皮皮虾','胜利河美食街：烧烤、小龙虾选择集中','杭州酒家 / 知味观外卖：想吃本地味更稳妥']
+      };
+
+      let choices = loadChoices();
+      let filter = 'all';
+      let toastTimer;
+      const sectionsEl = document.getElementById('sections');
+      const resultEl = document.getElementById('resultContent');
+
+      function loadChoices() {
+        try { const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); return saved && typeof saved === 'object' ? saved : {}; }
+        catch (_) { return {}; }
+      }
+      function saveChoices() { localStorage.setItem(STORAGE_KEY, JSON.stringify(choices)); }
+      function escapeHtml(value) { return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+      function getState(id) { const c = choices[id] || {}; return c.excluded ? 'excluded' : c.favorite ? 'favorite' : 'other'; }
+      function cardTemplate(item, tint) {
+        const [id,emoji,title,desc,tags] = item, state = getState(id);
+        const picks = recommendations[id] || [];
+        const picksLabel = id.includes('food') || ['burger','noodle','snacks','hotpot','brunch','dessert','latefood','coffee','bar'].includes(id) ? '榜单 / 口碑候选' : '具体去处 / 玩法';
+        return `<article class="card ${state === 'excluded' ? 'excluded' : ''} ${state === 'favorite' ? 'favorite' : ''}" data-id="${id}" data-state="${state}" style="--card-tint:${tint}">
+          <div class="card-top"><div class="emoji" aria-hidden="true">${emoji}</div><div class="card-copy"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(desc)}</p><div class="tags">${tags.map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join('')}</div><div class="picks"><span class="picks-title">${picksLabel}</span><ul class="pick-list">${picks.map(p=>`<li>${escapeHtml(p)}</li>`).join('')}</ul></div></div></div>
+          <div class="actions"><button class="vote fav ${choices[id]?.favorite ? 'selected' : ''}" data-action="favorite" aria-pressed="${!!choices[id]?.favorite}" aria-label="心选：${escapeHtml(title)}">${choices[id]?.favorite ? '♥' : '♡'} 心选</button><button class="vote no ${choices[id]?.excluded ? 'selected' : ''}" data-action="excluded" aria-pressed="${!!choices[id]?.excluded}" aria-label="婉拒：${escapeHtml(title)}">⊘ 婉拒</button></div>
+        </article>`;
+      }
+      function render() {
+        sectionsEl.innerHTML = categories.map(cat => {
+          const visible = cat.items.filter(i => filter === 'all' || getState(i[0]) === filter);
+          return `<section class="section" data-category="${cat.id}" ${visible.length ? '' : 'hidden'}><div class="section-head"><div><h2 class="section-title">${cat.title}</h2><p class="section-kicker">${cat.kicker}</p></div><span class="count">${visible.length} 项</span></div><div class="grid">${cat.items.map(i => cardTemplate(i,cat.tint)).join('')}</div></section>`;
+        }).join('');
+        applyFilter();
+      }
+      function applyFilter() {
+        document.querySelectorAll('.card').forEach(card => { card.hidden = filter !== 'all' && card.dataset.state !== filter; });
+        document.querySelectorAll('.section').forEach(section => {
+          const shown = [...section.querySelectorAll('.card')].filter(c => !c.hidden).length;
+          section.hidden = shown === 0;
+          section.querySelector('.count').textContent = `${shown} 项`;
+        });
+      }
+      function toggleChoice(id, action) {
+        const current = choices[id] || { favorite:false, excluded:false };
+        current[action] = !current[action];
+        choices[id] = current.favorite || current.excluded ? current : undefined;
+        if (!choices[id]) delete choices[id];
+        saveChoices(); render();
+        showToast(action === 'favorite' ? (current.favorite ? '已加入心选 ♥' : '已取消心选') : (current.excluded ? '已标记婉拒' : '已取消婉拒'));
+      }
+      function resultData() {
+        return categories.map(cat => ({...cat, favorite:cat.items.filter(i=>getState(i[0])==='favorite'), excluded:cat.items.filter(i=>getState(i[0])==='excluded'), other:cat.items.filter(i=>getState(i[0])==='other')}));
+      }
+      function generateResult(scroll = false) {
+        resultEl.className = '';
+        resultEl.innerHTML = resultData().map(cat => `<div class="result-block"><h3>${cat.title}</h3>${resultRow('♥ 心选',cat.favorite,'f')}${resultRow('⊘ 婉拒',cat.excluded,'n')}${resultRow('○ 其他未选',cat.other,'o')}</div>`).join('');
+        if (scroll) document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+        showToast('选择结果已生成');
+      }
+      function resultRow(label, items, cls) { return `<div class="result-row"><span class="result-label ${cls}">${label}</span><span>${items.length ? items.map(i=>escapeHtml(i[2])).join('、') : '（无）'}</span></div>`; }
+      function resultText() {
+        const lines = ['杭州暑假周末候选玩法｜我的选择',''];
+        resultData().forEach(cat => { lines.push(`【${cat.title}】`,`♥ 心选：${cat.favorite.length ? cat.favorite.map(i=>i[2]).join('、') : '（无）'}`,`⊘ 婉拒：${cat.excluded.length ? cat.excluded.map(i=>i[2]).join('、') : '（无）'}`,`○ 其他未选：${cat.other.length ? cat.other.map(i=>i[2]).join('、') : '（无）'}`,''); });
+        lines.push('其他未选＝不排斥，也没非去不可，主打一个随大部队行动。','具体餐厅活动地点等，等大家选完后再决定。');
+        return lines.join('\n');
+      }
+      async function copyResult(successText='结果已复制') {
+        generateResult(false); const text = resultText();
+        try { await navigator.clipboard.writeText(text); showToast(successText); }
+        catch (_) { const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); showToast(successText); }
+      }
+      async function shareResult() {
+        generateResult(false);
+        if (navigator.share) { try { await navigator.share({title:'杭州暑假周末候选玩法',text:resultText()}); showToast('已打开系统分享'); } catch (e) { if (e.name !== 'AbortError') copyResult('当前无法分享，结果已复制'); } }
+        else copyResult('浏览器不支持系统分享，结果已复制');
+      }
+      function showToast(text) { const el=document.getElementById('toast'); el.textContent=text; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),1800); }
+
+      sectionsEl.addEventListener('click', e => { const btn=e.target.closest('.vote'); if (!btn) return; toggleChoice(btn.closest('.card').dataset.id,btn.dataset.action); });
+      document.querySelectorAll('[data-filter]').forEach(btn => btn.addEventListener('click', () => { filter=btn.dataset.filter; document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b===btn)); render(); }));
+      document.getElementById('resetBtn').addEventListener('click', () => { if (confirm('要清空所有心选和婉拒，恢复到随大部队模式吗？')) { choices={}; localStorage.removeItem(STORAGE_KEY); filter='all'; document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all')); render(); resultEl.className='result-empty'; resultEl.textContent='已恢复默认。重新选也行，直接随大部队也行。'; showToast('已恢复默认'); } });
+      document.getElementById('generateTop').addEventListener('click',()=>generateResult(true));
+      document.getElementById('generateBottom').addEventListener('click',()=>generateResult(false));
+      document.getElementById('copyBtn').addEventListener('click',()=>copyResult());
+      document.getElementById('shareBtn').addEventListener('click',shareResult);
+      render();
+    })();
+  </script>
+</body>
+</html>
